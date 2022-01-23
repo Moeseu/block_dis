@@ -1,6 +1,8 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@1,100&display=swap');
 body{
 	margin: 0;
+	background: rgb(34,124,195);
+background: linear-gradient(0deg, rgba(34,124,195,0.7567401960784313) 0%, rgba(45,253,251,1) 100%);
 }
 
 a{
@@ -98,7 +100,7 @@ footer p span {
 	text-transform: uppercase;
 	font-weight: 800;
 }
-/* categories_page */
+/* categories_page начало*/
 
 #categories_page h2 {
 	text-align: center;
@@ -137,5 +139,62 @@ footer p span {
 
 .cat_item a:hover{
 	border: 1px solid green;
-	transition: .2s ease-in-out;
+	transition: .3s ease-in-out;
 }
+/* categories_page конец*/
+/* news_page начало */
+
+#news_page h2 {
+	text-align: center;
+	background: #66CDAA;
+	font-size: 35px;
+	margin: 30px 0 50px 0;
+	text-shadow: 2px 2px 2px rgba(150, 150, 150, 1);
+}
+
+.news_item h3{
+	font-size: 21px;
+}
+
+.news_item p {
+	font-size: 16px;
+}
+
+.news_item h3, .news_item p, .news_item a {
+	padding: 5px 15px;
+}
+
+.news_item {
+	float: left;
+	width: 200px;
+	height: 400px;
+	opacity: .7;
+	padding-bottom: 5px;
+	/*background: #66CDAA;*/
+	border-radius: 5px;
+	border-right: 5px solid black;
+	border-top: 5px solid black;
+	/*border: 5px solid green;*/
+	transition: .3s ease-in-out;
+}
+
+.news_item img{
+	width: 100%;
+	display: block;
+	margin: 0 auto;
+}
+.news_item:hover{
+	background: #40E0D0;
+	color: #000;
+	cursor: pointer;
+}
+
+.news_item a{
+	color: #0000FF;
+	font-size: 16px;
+	font-weight: 800;
+}
+
+
+
+/* news_page конец */
