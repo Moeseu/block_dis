@@ -6,7 +6,7 @@ html {
 body{
 	margin: 0;
 	background: rgb(34,124,195);
-background: linear-gradient(0deg, rgba(34,124,195,0.7567401960784313) 0%, rgba(45,253,251,1) 100%);
+	background: linear-gradient(0deg, rgba(34,124,195,0.7567401960784313) 0%, rgba(45,253,251,1) 100%);
 }
 
 a{
