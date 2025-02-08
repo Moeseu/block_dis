@@ -43,7 +43,6 @@ def apology(message, code=400):
     return render_template("apology.html", message=message, code=code)
 
 @app.route("/")
-@login_required
 def index():
     search_query = request.args.get("search", "").strip()
     selected_tag = request.args.get("tag")

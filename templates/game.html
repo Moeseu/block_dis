@@ -30,6 +30,7 @@
                 {% endif %}
             {% else %}
                 <div class="alert alert-success">You own this game!</div>
+                <button class="btn btn-success" onclick="launchGame()">Launch Game</button>
             {% endif %}
         </div>
     </div>
@@ -63,4 +64,10 @@
             </div>
         {% endfor %}
     </div>
+
+    <script>
+        function launchGame() {
+            alert('Starting game...');
+        }
+    </script>
 {% endblock %}
