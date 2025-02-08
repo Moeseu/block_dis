@@ -220,6 +220,7 @@ def register():
     return render_template("register.html")
 
 @app.route("/game/<int:game_id>")
+@login_required
 def game(game_id):
     try:
         # Отримання інформації про гру
