@@ -1,30 +1,13 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Блочний сайт</title>
-	<link rel="stylesheet" type="text/css" href="style.css">
-</head>
-<body>
-	
-	<div id="wrapper">
-	<header>
-		<h1>Магазин</h1>
+{% extends "layout.html" %}
 
-		<nav>
-			<a href="index.html">Главня</a>
-			<a class="active_menu_link" href="categories.html">Категории</a>
-			<a href="news.html">Новости</a>
-			<a href="contacts.html">Контакты</a>
-			<a href="cart.html">Корзина</a>
-		</nav>
+{% block title %}
+    My account
+{% endblock %}
 
-	</header>
-	<main id="categories_page">
+{% block main %}
 
 		<h2>Категории</h2>
-		
+
 
 		<div class="cat_item">
 			<img src="https://static.wikia.nocookie.net/protagonist/images/6/66/Steve_Minecraft.jpg/revision/latest?cb=20190518145614&path-prefix=ru " alt="">
@@ -128,24 +111,6 @@
 			<a href="#">Весь список</a>
 
 		</div>
-
-
-
-	</main>
-
-	<footer>
-		<p>
-			Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-			tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-			quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-			consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
-		</p>
-		<p>
-			Lorem ipsum dolor sit amet consectetur adipisicing elit. Fuga illum dolorum animi tempore, assumenda in laborum aliquid earum reprehenderit autem perspiciatis. Esse, ipsa, dolor eligendi dignissimos sapiente autem repudiandae <span>*********</span> libero.
-		</p>
-	</footer>
-
 	</div>
 
-</body>
-</html>
+{% endblock %}
