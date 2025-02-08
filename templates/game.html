@@ -20,7 +20,13 @@
             <p class="release-date">Release Date: {{ game.release_date }}</p>
             <p class="description">{{ game.description }}</p>
 
-            {% if not user_owns_game %}
+            {% if not is_logged_in %}
+                <div class="alert alert-info">
+                    <a href="{{ url_for('login') }}" class="btn btn-primary">Login to Purchase</a>
+                    <span style="margin-left: 10px;">or</span>
+                    <a href="{{ url_for('register') }}" class="btn btn-secondary">Register</a>
+                </div>
+            {% elif not user_owns_game %}
                 {% if in_cart %}
                     <div class="alert alert-info">This game is already in your cart!</div>
                 {% else %}
@@ -42,7 +48,11 @@
             <p>Average Rating: {{ "%.1f"|format(avg_rating) }}/10</p>
         {% endif %}
 
-        {% if user_owns_game and not user_reviewed %}
+        {% if not is_logged_in %}
+            <div class="alert alert-info" style="margin-bottom: 20px;">
+                <p>Want to share your thoughts? <a href="{{ url_for('login') }}">Login</a> to write a review.</p>
+            </div>
+        {% elif user_owns_game and not user_reviewed %}
             <form action="{{ url_for('add_review', game_id=game.id_game) }}" method="post">
                 <div class="form-group">
                     <label for="rating">Rating (1-10):</label>
@@ -56,13 +66,19 @@
             </form>
         {% endif %}
 
-        {% for review in reviews %}
-            <div class="review">
-                <p class="rating">Rating: {{ review.rating }}/10</p>
-                <p class="review-text">{{ review.review_text }}</p>
-                <p class="reviewer">By {{ review.nickname }} on {{ review.review_date }}</p>
-            </div>
-        {% endfor %}
+        <div class="reviews-list" style="margin-top: 20px;">
+            {% if reviews %}
+                {% for review in reviews %}
+                    <div class="review" style="border-bottom: 1px solid #ddd; padding: 15px 0;">
+                        <p class="rating">Rating: {{ review.rating }}/10</p>
+                        <p class="review-text">{{ review.review_text }}</p>
+                        <p class="reviewer" style="color: #666;">By {{ review.nickname }} on {{ review.review_date }}</p>
+                    </div>
+                {% endfor %}
+            {% else %}
+                <p>No reviews yet. Be the first to review this game!</p>
+            {% endif %}
+        </div>
     </div>
 
     <script>

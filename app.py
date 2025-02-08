@@ -220,28 +220,15 @@ def register():
     return render_template("register.html")
 
 @app.route("/game/<int:game_id>")
-@login_required
 def game(game_id):
     try:
-        # Отримання інформації про гру
+        # Get game information
         game = db.execute("SELECT * FROM games WHERE id_game = ?", game_id)
         if not game:
             return apology("Game not found", 404)
         game = game[0]
 
-        # Перевірка чи гра вже в корзині
-        in_cart = db.execute("""
-            SELECT quantity FROM cart_items
-            WHERE id_user = ? AND id_game = ?
-        """, session["user_id"], game_id)
-
-        # Перевірка чи користувач вже має гру
-        user_owns_game = db.execute("""
-            SELECT 1 FROM user_games
-            WHERE id_user = ? AND id_game = ?
-        """, session["user_id"], game_id)
-
-        # Отримання відгуків
+        # Get reviews
         reviews = db.execute("""
             SELECT r.*, u.nickname
             FROM reviews r
@@ -250,18 +237,37 @@ def game(game_id):
             ORDER BY r.review_date DESC
         """, game_id)
 
-        # Обчислення середнього рейтингу
+        # Calculate average rating
         avg_rating = db.execute("""
             SELECT AVG(rating) as avg_rating
             FROM reviews
             WHERE id_game = ?
         """, game_id)[0]['avg_rating']
 
-        # Перевірка чи користувач вже залишив відгук
-        user_reviewed = db.execute("""
-            SELECT 1 FROM reviews
-            WHERE id_user = ? AND id_game = ?
-        """, session["user_id"], game_id)
+        # Initialize user-specific variables
+        in_cart = False
+        user_owns_game = False
+        user_reviewed = False
+
+        # Check user-specific information only if user is logged in
+        if session.get("user_id"):
+            # Check if game is in cart
+            in_cart = db.execute("""
+                SELECT quantity FROM cart_items
+                WHERE id_user = ? AND id_game = ?
+            """, session["user_id"], game_id)
+
+            # Check if user owns the game
+            user_owns_game = db.execute("""
+                SELECT 1 FROM user_games
+                WHERE id_user = ? AND id_game = ?
+            """, session["user_id"], game_id)
+
+            # Check if user has reviewed the game
+            user_reviewed = db.execute("""
+                SELECT 1 FROM reviews
+                WHERE id_user = ? AND id_game = ?
+            """, session["user_id"], game_id)
 
         return render_template("game.html",
                              game=game,
@@ -269,7 +275,8 @@ def game(game_id):
                              avg_rating=avg_rating,
                              user_owns_game=bool(user_owns_game),
                              user_reviewed=bool(user_reviewed),
-                             in_cart=bool(in_cart))
+                             in_cart=bool(in_cart),
+                             is_logged_in=bool(session.get("user_id")))
     except Exception as e:
         return apology(f"Database error occurred: {e}", 500)
 
